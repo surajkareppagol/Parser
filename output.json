@@ -1,1 +1,5 @@
-{"root": {"program": {"name": "xml_parser", "author": "dev-shadoww", "version": "1.0"}}}
+{
+  "root": {
+    "program": { "name": "xml_parser", "author": "dev-shadoww", "version": 1.0 }
+  }
+}

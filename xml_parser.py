@@ -47,7 +47,6 @@ def insert_into_json():
     for key_value in temp_object.keys():
         xml_object_temp_key = key_value
     xml_to_json_data[xml_root_tag][xml_object_temp_key] = temp_object[xml_object_temp_key]
-    print(xml_to_json_data)
 
 
 if len(sys.argv) < 2:
@@ -114,6 +113,11 @@ try:
                                     else:
                                         xml_arr.append(element)
                                 value = xml_arr
+                            else:
+                                try:
+                                    value = float(value)
+                                except ValueError:
+                                    pass
                             xml_current_object[tag][item.split("_")[0]] = value
                     xml_object_list.append(xml_current_object)
 
