@@ -2,7 +2,6 @@ import sys
 import json
 
 
-xml_arr = []
 xml_tags_and_values = ""
 xml_object_list = []
 xml_tag_stack = []
@@ -13,6 +12,26 @@ xml_object_temp_key = ""
 
 xml_multi_comment_found = False
 is_stack_updated = False
+
+
+def check_value(value):
+    xml_arr = []
+
+    if value.isdigit():
+        value = int(value)
+    elif "," in value and len(value.split(",")) == value.count(",") - 1:
+        for element in value.split(","):
+            if element.strip().isdigit():
+                xml_arr.append(int(element.strip()))
+            else:
+                xml_arr.append(element)
+        value = xml_arr
+    else:
+        try:
+            value = float(value)
+        except ValueError:
+            pass
+    return value
 
 
 def get_tag_and_value(line):
@@ -65,6 +84,7 @@ try:
             if "<?" in str_line:
                 continue
 
+            # Check for multi-line comments
             if "<!--" in str_line and "-->" in str_line:
                 continue
 
@@ -103,21 +123,8 @@ try:
                     xml_current_object[tag] = {}
                     for item in xml_tags_and_values.split("{[")[-1].split("]]"):
                         if "____" in item:
-                            value = item.split("____")[1]
-                            if value.isdigit():
-                                value = int(value)
-                            elif "," in value and len(value.split(",")) == value.count(",") - 1:
-                                for element in value.split(","):
-                                    if element.strip().isdigit():
-                                        xml_arr.append(int(element.strip()))
-                                    else:
-                                        xml_arr.append(element)
-                                value = xml_arr
-                            else:
-                                try:
-                                    value = float(value)
-                                except ValueError:
-                                    pass
+                            # Check if the value is of different type
+                            value = check_value(item.split("____")[1])
                             xml_current_object[tag][item.split("_")[0]] = value
                     xml_object_list.append(xml_current_object)
 
