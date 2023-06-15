@@ -19,7 +19,7 @@ def check_value(value):
 
     if value.isdigit():
         value = int(value)
-    elif "," in value and len(value.split(",")) == value.count(",") - 1:
+    elif "," in value and len(value.split(",")) == value.count(",") + 1:
         for element in value.split(","):
             if element.strip().isdigit():
                 xml_arr.append(int(element.strip()))
@@ -106,6 +106,7 @@ try:
                     is_stack_updated = True
                     if is_stack_updated and len(xml_tag_stack) > 2:
                         # Add a placeholder "{["
+                        # To separate tags from different nodes
                         xml_tags_and_values += "{["
                     if len(xml_tag_stack) == 1:
                         xml_root_tag = xml_tag_stack[0]
@@ -115,6 +116,7 @@ try:
                 if len(xml_closing_tag) > 0 and "/" not in xml_opening_tag:
                     is_stack_updated = False
                     # Add placeholders "{[" and "____"
+                    # To separate different nodes and then their names and values
                     xml_tags_and_values += f"{xml_opening_tag}____{xml_value}]]"
 
                 # Identify Closing Tags
@@ -125,7 +127,8 @@ try:
                         if "____" in item:
                             # Check if the value is of different type
                             value = check_value(item.split("____")[1])
-                            xml_current_object[tag][item.split("_")[0]] = value
+                            xml_current_object[tag][item.split("____")[
+                                0]] = value
                     xml_object_list.append(xml_current_object)
 
                     if len(xml_object_list) > 1 and len(xml_tag_stack) > 1:
@@ -139,8 +142,8 @@ try:
                             insert_into_json()
 
                     xml_current_object = {}
-                    xml_tags_and_values = "+".join(
-                        xml_tags_and_values.split("+")[:-1])
+                    xml_tags_and_values = "{[".join(
+                        xml_tags_and_values.split("{[")[:-1])
                     continue
 
     with open("output.json", "w") as output_json_file:
