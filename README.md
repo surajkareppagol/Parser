@@ -2,11 +2,21 @@
 
 A python script which parses the XML and converts it into JSON.
 
-## How to use?
+```bash
+python main.py <file-path> [options]
+```
 
 ```bash
-python xml_parser.py <file-path> or --help
+python main.py --help
 ```
+
+Use `-o` option to pass the output file name.
+
+```bash
+python main.py example.xml -o output.json
+```
+
+Here is an example,
 
 `XML File`,
 
