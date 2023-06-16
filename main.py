@@ -2,11 +2,11 @@ import sys
 from xml_parser import xml_to_json_parser
 
 if len(sys.argv) < 2:
-    print("Usage: python xml_parser.py <file_path>\n\n-o = output file name")
+    print("Usage: python main.py <file_path>\n\n-o = output file name")
     sys.exit(1)
 
 if sys.argv[1] == "--help":
-    print("Usage: python xml_parser.py <file_path>\n\n-o = output file name")
+    print("Usage: python main.py <file_path>\n\n-o = output file name")
     sys.exit(0)
 
 try:
@@ -25,5 +25,5 @@ try:
         f"Success: Parsed '{sys.argv[1]}' file and generated '{output_file_name}' file.")
 
 except FileNotFoundError:
-    print("Usage: python xml_parser.py <file_path>\n\n-o = output file name")
+    print("Usage: python main.py <file_path>\n\n-o = output file name")
     sys.exit(1)
