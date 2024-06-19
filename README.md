@@ -20,11 +20,11 @@ Here is an example,
 
 `XML File`,
 
-![xml file](/assets/xml.png)
+![xml file](https://raw.githubusercontent.com/surajkareppagol/Assets/main/22%20-%20Parser/xml.png)
 
 Converted `JSON File`,
 
-![json file](/assets/json.png)
+![json file](https://raw.githubusercontent.com/surajkareppagol/Assets/main/22%20-%20Parser/json.png)
 
 ## NOTE
 
